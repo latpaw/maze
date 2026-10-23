@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#365a43">
+  <meta name="description" content="为五六岁的孩子制作专属迷宫。106 种趣味造型、四档难度，支持逐题设置、A4 打印、PDF 和高清图片下载。">
+  <title>小小迷宫工坊 · 把好奇心画成小冒险</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <script src="js/shapes.js" defer></script>
+  <script src="js/lattices.js" defer></script>
+  <script src="js/graph-maze.js" defer></script>
+  <script src="js/maze.js" defer></script>
+  <script src="js/geometry.js" defer></script>
+  <script src="js/document.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="小小迷宫工坊首页">
+      <svg class="brand-logo" viewBox="0 0 44 44" fill="none" aria-hidden="true"><rect x="1" y="1" width="42" height="42" rx="13" fill="#365a43"/><path d="M12 13h19v19H12V21h11v5h-5m0-8v-5m13 10h-7m-6 9v4" stroke="#f6f5e9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="13" r="3" fill="#edb16b"/><path d="m32 6 1.1 2.7L36 10l-2.9 1.2L32 14l-1.2-2.8L28 10l2.8-1.3L32 6Z" fill="#edb16b"/></svg>
+      <span><strong>小小迷宫工坊<span class="brand-dot">.</span></strong><small>LITTLE MAZE CLUB</small></span>
+    </a>
+    <nav class="header-nav" aria-label="主导航"><span class="nav-current">制作迷宫</span><button type="button" data-action="guide">打印小贴士<span data-icon="arrow-up-right"></span></button></nav>
+    <span class="header-note"><span class="status-dot"></span>把屏幕时间，变成纸上时光</span>
+  </header>
+
+  <main class="main-shell">
+    <section class="intro" aria-labelledby="page-title">
+      <div class="intro-copy"><div class="eyebrow"><span class="tiny-star">✳</span> FOR LITTLE EXPLORERS, AGES 5–6</div><h1 id="page-title">把好奇心，画成一场<span>小冒险<svg viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path d="M3 8Q91-2 197 5"/></svg></span>。</h1><p>选个喜欢的形状，准备好画笔。每一次出发，都有新的发现。</p></div>
+      <div class="intro-sticker" aria-hidden="true"><svg viewBox="0 0 145 105" fill="none"><path d="M20 61C0 30 37 6 65 28s-16 64 23 59 23-34 38-31" stroke="#a4b69a" stroke-width="1.5" stroke-dasharray="4 5"/><path d="m119 49 13 6-12 9" stroke="#a4b69a" stroke-width="1.5" stroke-linecap="round"/><path d="m70 12 3 8 9 .8-7 5.2 2 8-7-4.3-7 4.3 2-8-7-5.2 9-.8 3-8Z" fill="#efbc7c"/><path d="m24 69 4 12 12 3-12 4-4 12-3-12-12-4 12-3 3-12Z" fill="#dbe3cc"/><path d="M94 34c7-3 17 6 16 16s-9 17-17 14-12-15-10-22 8-9 11-8Z" fill="#e8ede0"/><path d="m90 48 5 5 9-12" stroke="#78916b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>一点耐心，一大步成长</span></div>
+    </section>
+
+    <div class="workbench">
+      <aside class="config-column" aria-label="迷宫制作设置">
+        <section class="config-card">
+          <div class="section-heading"><span class="step-number">01</span><h2>准备一场冒险</h2><span class="small-tag">自由搭配</span></div>
+          <div class="quantity-row"><div><label for="maze-count">这次想玩几个？</label><p>每一道都可以不一样</p></div><div class="stepper"><button type="button" data-action="decrease" aria-label="减少一道迷宫"><span data-icon="minus"></span></button><input id="maze-count" type="number" min="1" max="20" value="4" inputmode="numeric" aria-label="迷宫数量，1到20道"><button type="button" data-action="increase" aria-label="增加一道迷宫"><span data-icon="plus"></span></button></div></div>
+          <div class="list-heading"><span>我的迷宫 <small id="maze-count-label">04</small></span><button type="button" class="text-button" data-action="batch"><span data-icon="sliders"></span>批量设置</button></div>
+          <div id="maze-list" class="maze-list"></div>
+          <div class="generation-actions"><button type="button" class="primary-button generate-button" data-action="generate"><span data-icon="sparkles"></span>生成新迷宫<span data-icon="arrow-right"></span></button><button type="button" class="random-button" data-action="random"><span data-icon="shuffle"></span>帮我随机搭配</button></div>
+          <div class="local-note"><span data-icon="check-circle"></span>设置自动保存，每次生成都是新路线</div>
+        </section>
+
+        <section class="config-card paper-settings">
+          <div class="section-heading"><span class="step-number">02</span><h2>准备好纸和笔</h2><span data-icon="file" class="heading-icon"></span></div>
+          <div class="setting-toggle"><label for="minimal-mode"><span>极简模式</span><small>只展示迷宫，隐藏标题和其他信息</small></label><input id="minimal-mode" class="switch" type="checkbox" role="switch" aria-controls="paper-details" checked></div>
+          <div id="paper-details" class="paper-details" hidden>
+            <label class="field-label" for="sheet-title">练习纸标题</label><input class="text-input" id="sheet-title" type="text" maxlength="24" value="我的迷宫小冒险" placeholder="给这次冒险起个名字">
+            <div class="setting-toggle"><label for="name-line"><span>姓名与日期</span></label><input id="name-line" class="switch" type="checkbox" role="switch" checked></div>
+          </div>
+          <div class="line-style-setting"><span class="field-label">线条风格</span><div class="line-style-options segmented" role="group" aria-label="迷宫线条风格"><button type="button" data-line-style="straight" aria-pressed="false"><span data-icon="line-straight"></span>直线</button><button type="button" data-line-style="rounded" aria-pressed="false"><span data-icon="line-rounded"></span>圆弧</button><button type="button" data-line-style="curved" aria-pressed="true" class="active"><span data-icon="line-curved"></span>曲线</button></div></div>
+          <div class="setting-toggle"><label for="ink-mode"><span>黑白省墨</span><small>清晰线条，适合家用打印</small></label><input id="ink-mode" class="switch" type="checkbox" role="switch" checked></div>
+          <div class="setting-toggle"><label for="answer-pages"><span>附上答案页</span><small>答案单独放在练习纸后面</small></label><input id="answer-pages" class="switch" type="checkbox" role="switch"></div>
+        </section>
+        <div class="parent-note"><span data-icon="heart"></span><p>走错路也没关系，<br>每一次尝试，都是小小的进步。</p><svg viewBox="0 0 44 32" aria-hidden="true"><path d="M5 23c0-17 28-21 32-5 4 15-18 15-16 4 1-8 18-4 15 7"/></svg></div>
+      </aside>
+
+      <section class="preview-column" aria-label="A4打印预览">
+        <div class="preview-header"><div class="preview-title"><span class="step-number">03</span><h2>小冒险，准备出发</h2><span class="live-dot">实时预览</span></div><div class="export-actions"><button type="button" class="outline-button" data-action="print"><span data-icon="printer"></span><span>打印</span></button><button type="button" class="primary-button" id="download-pdf" data-action="pdf"><span data-icon="download"></span><span>下载 PDF</span></button></div></div>
+        <div class="preview-controls"><div class="layout-setting"><span class="control-label">每页题数</span><div class="segmented" role="group" aria-label="每页迷宫数量"><button type="button" data-layout="1" aria-pressed="false"><span data-icon="layout-one"></span>1 题</button><button type="button" data-layout="2" aria-pressed="true" class="active"><span data-icon="layout-two"></span>2 题</button><button type="button" data-layout="4" aria-pressed="false"><span data-icon="layout-four"></span>4 题</button><button type="button" data-layout="6" aria-pressed="false"><span data-icon="layout-six"></span>6 题</button></div></div><label class="answer-toggle"><input id="show-solution" type="checkbox"><span data-icon="route"></span>查看答案</label></div>
+        <div class="preview-stage" id="preview-stage"><div class="paper-dimensions"><span>A4</span><i></i>210 × 297 mm<i></i><span>纵向</span></div><div class="paper-wrap" id="paper-wrap"><div class="paper" id="paper" aria-live="polite"></div></div><div class="page-navigation"><button type="button" data-action="prev-page" aria-label="上一页"><span data-icon="chevron-left"></span></button><div id="page-indicator">第 <strong>1</strong> 页 <span>/ 2</span></div><button type="button" data-action="next-page" aria-label="下一页"><span data-icon="chevron-right"></span></button></div></div>
+        <div class="preview-footer"><span><span data-icon="check-circle"></span><span id="print-summary">4 道迷宫 · 2 张 A4 · 已为打印留出页边距</span></span><button type="button" class="text-button" data-action="png"><span data-icon="image"></span>下载本页图片</button></div>
+        <div class="print-tip"><span data-icon="lightbulb"></span><p>小贴士：打印时选择 <strong>A4 · 实际大小（100%）</strong>，小朋友画起来更舒服。</p><button type="button" data-action="guide" aria-label="查看打印指南"><span data-icon="arrow-up-right"></span></button></div>
+      </section>
+    </div>
+    <footer class="site-footer"><span>小小迷宫工坊 <i>·</i> 让探索发生在纸上</span><span>106 种形状 <b>·</b> 无需登录 <b>·</b> 本地生成</span></footer>
+  </main>
+
+  <dialog id="shape-dialog" class="shape-dialog" aria-labelledby="shape-dialog-title"><div class="dialog-heading"><div><span class="eyebrow">PICK A LITTLE ADVENTURE</span><h2 id="shape-dialog-title">今天，想去哪里探险？</h2><p>106 种趣味造型，总有一个你喜欢。</p></div><button type="button" class="icon-button" data-close="shape-dialog" aria-label="关闭形状选择"><span data-icon="x"></span></button></div><div class="shape-search"><span data-icon="search"></span><input type="search" id="shape-search" placeholder="找一找：小鱼、大象、圣诞老人…" aria-label="搜索迷宫形状"><button type="button" class="text-button" data-action="random-shape"><span data-icon="shuffle"></span>随便选一个</button></div><div class="shape-browser"><nav class="shape-categories" id="shape-categories" aria-label="形状分类"></nav><div class="shape-results"><div class="shape-results-heading"><span id="shape-results-title">所有形状</span><span id="shape-results-count">106 种</span></div><div class="shape-grid" id="shape-grid"></div></div></div></dialog>
+
+  <dialog id="batch-dialog" class="small-dialog" aria-labelledby="batch-title"><div class="dialog-heading"><div><span class="eyebrow">MAKE IT YOURS</span><h2 id="batch-title">一起设置，一起出发</h2><p>将下面的设置应用到所有迷宫。</p></div><button type="button" class="icon-button" data-close="batch-dialog" aria-label="关闭批量设置"><span data-icon="x"></span></button></div><form id="batch-form"><label class="field-label">迷宫难度</label><div id="batch-difficulties" class="difficulty-options batch-difficulties" role="group" aria-label="批量设置难度"></div><label class="field-label" for="batch-mode">玩法</label><select class="text-input" id="batch-mode"><option value="classic">经典迷宫</option><option value="story">故事任务</option><option value="collect">收集星星</option></select><label class="check-row"><input id="batch-random-shapes" type="checkbox">同时随机搭配新形状</label><button class="primary-button dialog-submit" type="submit">应用到全部迷宫<span data-icon="check"></span></button></form></dialog>
+
+  <dialog id="guide-dialog" class="small-dialog guide-dialog" aria-labelledby="guide-title"><div class="dialog-heading"><div><span class="eyebrow">A LITTLE HELP</span><h2 id="guide-title">让纸上的冒险更顺利</h2></div><button type="button" class="icon-button" data-close="guide-dialog" aria-label="关闭打印指南"><span data-icon="x"></span></button></div><div class="guide-item"><span>01</span><div><h3>先挑难度，再挑形状</h3><p>第一次玩，建议从「入门」或「简单」开始。点开每道题，可以单独换造型、难度和玩法。</p></div></div><div class="guide-item"><span>02</span><div><h3>只留迷宫，留足画画的空间</h3><p>默认开启极简模式，纸上只显示迷宫。关闭后可恢复标题、题号和说明。每页可选 1、2、4、6 题，也可以切换直线、圆弧和曲线风格。</p></div></div><div class="guide-item"><span>03</span><div><h3>A4，实际大小，单面打印</h3><p>下载 PDF 后打印，选择 A4 纸和「实际大小 / 100%」。直接打印网页时，关闭浏览器的页眉页脚。答案页在练习纸后面，可按需单独打印。</p></div></div><div class="guide-item"><span>04</span><div><h3>享受走错路的小发现</h3><p>从边界开口进入迷宫，找到另一处出口；同心圆迷宫从外圈走到中心。关闭极简模式后会显示起终点标记。「收集星星」玩法中，沿正确路线收集 3 颗星星，再到终点。</p></div></div><button type="button" class="primary-button dialog-submit" data-close="guide-dialog">知道啦，开始小冒险<span data-icon="arrow-right"></span></button></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="print-root" aria-hidden="true"></div>
+</body>
+</html>
